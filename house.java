@@ -1,23 +1,41 @@
-
-
 import java.util.*;
 class Resident
 {
-    Scanner sc=new Scanner(System.in);
+    Scanner sc=house.sc;
     int support,choice_password,choice_help,choice_internet,choice_food,choice_room_ca,choice_cleanliness;
     String chack_Email,password,id,id_chack,valid="Enter valid number";
     double randomNumber=Math.random();
     int random_no=(int)(Math.random()*100)+1;
     String responce="Thank you , Your ticket no. is "+random_no+". Your ticket has been recorded our team will contact you within twenty four hours & solve your problem";
+    int nextInt()
+    {
+        while(true)
+        {
+            try
+            {
+                return sc.nextInt();
+            }
+            catch(InputMismatchException e)
+            {
+                System.out.println("Invalid input! Please enter a number.");
+                sc.next();
+            }
+        }
+    }
     void check()
     {
         System.out.println("Enter Your ID (ex: 25ELG+roomId+BedNo)");
         id=sc.nextLine();
         boolean id_valid=false;
-        for(int Id1=101;Id1<104;Id1++)
+        for(int Id1=101;Id1<=120;Id1++)
         {
             for(int bed1=1;bed1<=2;bed1++)
             {
+                if (Id1 >= 104) {
+                    if (Id1 > Guest.nextRoom2 || (Id1 == Guest.nextRoom2 && bed1 >= Guest.nextBed2)) {
+                        continue;
+                    }
+                }
                 id_chack="25ELG"+Id1+bed1;
                 if(id.equals(id_chack))
                 {
@@ -26,31 +44,50 @@ class Resident
                     break;
                 }
             }
+            if (id_valid) break;
         }
-        for(int Id2=201;Id2<204;Id2++)
+        if(!id_valid)
         {
-            for(int bed2=1;bed2<=3;bed2++)
+            for(int Id2=201;Id2<=215;Id2++)
             {
-                id_chack="25ELG"+Id2+bed2;
-                if(id.equals(id_chack))
+                for(int bed2=1;bed2<=3;bed2++)
                 {
-                    id_valid=true;
-                    check_password();
-                    break;
+                    if (Id2 >= 204) {
+                        if (Id2 > Guest.nextRoom3 || (Id2 == Guest.nextRoom3 && bed2 >= Guest.nextBed3)) {
+                            continue;
+                        }
+                    }
+                    id_chack="25ELG"+Id2+bed2;
+                    if(id.equals(id_chack))
+                    {
+                        id_valid=true;
+                        check_password();
+                        break;
+                    }
                 }
+                if (id_valid) break;
             }
         }
-        for(int Id3=301;Id3<304;Id3++)
+        if(!id_valid)
         {
-            for(int bed3=1;bed3<=4;bed3++)
+            for(int Id3=301;Id3<=310;Id3++)
             {
-                id_chack="25ELG"+Id3+bed3;
-                if(id.equals(id_chack))
+                for(int bed3=1;bed3<=4;bed3++)
                 {
-                    id_valid=true;
-                    check_password();
-                    break;
+                    if (Id3 >= 304) {
+                        if (Id3 > Guest.nextRoom4 || (Id3 == Guest.nextRoom4 && bed3 >= Guest.nextBed4)) {
+                            continue;
+                        }
+                    }
+                    id_chack="25ELG"+Id3+bed3;
+                    if(id.equals(id_chack))
+                    {
+                        id_valid=true;
+                        check_password();
+                        break;
+                    }
                 }
+                if (id_valid) break;
             }
         }
         if(!id_valid)
@@ -73,7 +110,7 @@ class Resident
                 System.out.println("|CASE 1 : Services  |");
                 System.out.println("|CASE 2 : Support   |");
                 System.out.println("+===================+");
-                choice_help = sc.nextInt();
+                choice_help = nextInt();
                 boolean Help=true;
                 while(Help)
                 {
@@ -92,7 +129,7 @@ class Resident
                         System.out.println("+----------------------+");
                         System.out.println("+ Enter a valid number |");
                         System.out.println("+----------------------+");
-                        choice_help=sc.nextInt();
+                        choice_help=nextInt();
                     }
                 }
                 break;
@@ -103,7 +140,7 @@ class Resident
                 System.out.println("| 1 : Forgot password        |");
                 System.out.println("| 2 : ReEnter your password  |");
                 System.out.println("+----------------------------+");
-                choice_password=sc.nextInt();
+                choice_password=nextInt();
                 boolean correct_password=true;
                 while(correct_password)
                 {
@@ -123,7 +160,7 @@ class Resident
                     else
                     {
                         System.out.println("Enter a correct choice");
-                        choice_password=sc.nextInt();
+                        choice_password=nextInt();
                     }
                     break;
                 }
@@ -142,7 +179,7 @@ class Resident
 		System.out.println("|6 : Water                |");
 		System.out.println("|7 : Exit                 |");
 		System.out.println("+=========================+");
-		int serviceType = sc.nextInt();
+		int serviceType = nextInt();
 		boolean Service_case=true;
 
          while(Service_case)
@@ -219,7 +256,7 @@ class Resident
 				System.out.println("+----------------------+");
 				System.out.println("+ Enter a valid number |");
 				System.out.println("+----------------------|");
-				serviceType=sc.nextInt();
+				serviceType=nextInt();
 			}
         }
     }
@@ -266,7 +303,7 @@ class Resident
 		System.out.println("|5 : Cleanliness          |");
 		System.out.println("|6 : Security             |");
 		System.out.println("+=========================+");
-		support= sc.nextInt();
+		support= nextInt();
 		switch(support)
 		{
 			case 1:
@@ -303,7 +340,7 @@ class Resident
 		System.out.println("|CASE 3 : Frequently Getting disconnected|");
 		System.out.println("|CASE 4 : Unable to connect              |");
         System.out.println("+----------------------------------------+");
-		choice_internet=sc.nextInt();
+		choice_internet=nextInt();
 		switch(choice_internet)
 		{
 			case 1:
@@ -355,7 +392,7 @@ class Resident
 		System.out.println("|CASE 1 : Quality or test issuse|");
 		System.out.println("|CASE 2 : Meal timings          |");
         System.out.println("+-------------------------------+");
-		choice_food=sc.nextInt();
+		choice_food=nextInt();
 		switch(choice_food)
 		{
 			case 1:
@@ -388,7 +425,7 @@ class Resident
 		System.out.println("|CASE 2 : Wash room  |");
 		System.out.println("|CASE 3 : Common area|");
         System.out.println("+--------------------+");
-		choice_room_ca=sc.nextInt();
+		choice_room_ca=nextInt();
 		switch(choice_room_ca)
 		{
 			case 1:
@@ -464,7 +501,7 @@ class Resident
 		System.out.println("|CASE 2 : Common area|");
 		System.out.println("|CASE 3 : Dining Area|");
         System.out.println("+--------------------+");
-		choice_cleanliness=sc.nextInt();
+		choice_cleanliness=nextInt();
 		switch(choice_cleanliness)
 		{
 			case 1:
@@ -529,13 +566,34 @@ class Resident
 }
 class Guest
 {
-	Scanner sc=new Scanner(System.in);
+	Scanner sc=house.sc;
 	String name,father_Name,mother_Name,Name,address,city,state,job_tital,Degree,room;
-    String district,email,blood_groop,institute_name,Contract,course,degree,house,pincode;
+    String district,email,blood_groop,institute_name,Contract,course,degree,houseVar,pincode;
     String Mobile_no,mobile_no,father_mobile_no,mother_mobile_no,aadharcard_number,id,birthdate,Today_Date;
     int date,month,year,room_choice,Contracts,Month,Date ,Case5;
 	int Year=2025,room_need,your_choice,present_work,room_no,bed_no;
     static int bed,Room;
+    static int nextRoom2 = 104;
+    static int nextBed2 = 1;
+    static int nextRoom3 = 204;
+    static int nextBed3 = 1;
+    static int nextRoom4 = 304;
+    static int nextBed4 = 1;
+    int nextInt()
+    {
+        while(true)
+        {
+            try
+            {
+                return sc.nextInt();
+            }
+            catch(InputMismatchException e)
+            {
+                System.out.println("Invalid input! Please enter a number.");
+                sc.next();
+            }
+        }
+    }
 	void check()
 	{
 		Guest House = new Guest();
@@ -547,7 +605,7 @@ class Guest
 		System.out.println("| Case 1 : Yes                                                  |");
 		System.out.println("| Case 2 : No                                                   |");
 		System.out.println("+---------------------------------------------------------------+");
-		room_need=sc.nextInt();
+		room_need=nextInt();
         boolean need_room=true;
 		while(need_room)
 		{
@@ -560,7 +618,7 @@ class Guest
                 System.out.println("| Case 1 : Yes                                 |");
                 System.out.println("| Case 2 : No                                  |");
                 System.out.println("+----------------------------------------------+");
-                your_choice=sc.nextInt();
+                your_choice=nextInt();
                 boolean choice_your=true;
                 while(choice_your)
                 {
@@ -586,7 +644,7 @@ class Guest
                         System.out.println("+----------------------+");
                         System.out.println("| Enter a valid Number |");
                         System.out.println("+----------------------+");
-                        your_choice=sc.nextInt();
+                        your_choice=nextInt();
                     }
                 }
                 need_room=false;
@@ -603,7 +661,7 @@ class Guest
                 System.out.println("+----------------------+");
                 System.out.println("| Enter a valid Number |");
                 System.out.println("+----------------------+");
-                room_need=sc.nextInt();
+                room_need=nextInt();
             }
 		}		
 	}
@@ -719,7 +777,7 @@ class Guest
         System.out.println("Which of you following do you do?");
         System.out.println("Case 1 : Job");
         System.out.println("Case 2 : Study");
-        present_work=sc.nextInt();
+        present_work=nextInt();
         boolean work=true;
         while(work)
         {
@@ -760,7 +818,7 @@ class Guest
                 System.out.println("+======================+");
                 System.out.println("| Enter a valid number |");
                 System.out.println("+======================+");
-                present_work=sc.nextInt();
+                present_work=nextInt();
             }
         }
     }
@@ -777,7 +835,7 @@ class Guest
         System.out.println("| case 7: AB+                |");
         System.out.println("| case 8: AB-                |");
         System.out.println("+============================+");
-        int choice_bloodGroup=sc.nextInt();
+        int choice_bloodGroup=nextInt();
         switch(choice_bloodGroup)
         {
             case 1:
@@ -833,17 +891,17 @@ class Guest
         {
             System.out.println("+------------------------------+");
             System.out.println("| Enter your BirthYear         |");
-            year=sc.nextInt();
+            year=nextInt();
             System.out.println("+------------------------------+");
             System.out.println("| Enter your BirthMonth(1-12)  |");
-            month=sc.nextInt();
+            month=nextInt();
             if(month==2)
             {
                 if((year%400==0)||(year%4==0&&year%100!=0))
                 {
                     System.out.println("+------------------------------+");
                     System.out.println("| Enter your birth Date (1-29) |");
-				    date=sc.nextInt();
+				    date=nextInt();
                     if(date>=1&&date<=29)
                     {
                         Birth_chack=false;
@@ -858,7 +916,7 @@ class Guest
                 {
                     System.out.println("+------------------------------+");
                     System.out.println("| Enter your birth Date (1-28) |");
-				    date=sc.nextInt();
+				    date=nextInt();
                     if(date>=1&&date<=28)
                     {
                         Birth_chack=false;
@@ -874,7 +932,7 @@ class Guest
             {
                 System.out.println("+------------------------------+");
                 System.out.println("| Enter your birth Date (1-30) |");
-		    	date=sc.nextInt();
+		    	date=nextInt();
                 if(date>=1&&date<=30)
                 {
                     Birth_chack=false;
@@ -889,7 +947,7 @@ class Guest
             {
                 System.out.println("+------------------------------+");
                 System.out.println("| Enter your birth Date (1-31) |");
-		    	date=sc.nextInt();
+		    	date=nextInt();
                 if(date>=1&&date<=31)
                 {
                     Birth_chack=false;
@@ -979,62 +1037,98 @@ class Guest
 		System.out.println("| Option 2: 3 Sharing room                            |");
 		System.out.println("| Option 3: 4 Sharing room                            |");
         System.out.println("+-----------------------------------------------------+");
-        room_choice=sc.nextInt();
+        room_choice=nextInt();
         boolean choice_room=true;
         while(choice_room)
         {
             if(room_choice==1)
             {
                 room="2 Sharing room";
-                for( Room=104;Room<=120;Room++)
+                if(nextRoom2 > 120)
                 {
-                    for(bed=1;bed<=2;bed++)
+                    System.out.println("+-----------------------------------------------------+");
+                    System.out.println("| All 2-sharing rooms are fully booked!               |");
+                    System.out.println("+-----------------------------------------------------+");
+                    choice_room=false;
+                }
+                else
+                {
+                    Room = nextRoom2;
+                    bed = nextBed2;
+                    room_no = Room;
+                    bed_no = bed;
+                    System.out.println("+-----------------------------------------------------+");
+                    System.out.println("| Your Room number is "+Room+" & Bed number is "+bed+"           |");
+                    System.out.println("+-----------------------------------------------------+");
+                    
+                    nextBed2++;
+                    if(nextBed2 > 2)
                     {
-                        room_no=Room;bed_no=bed;
-                        System.out.println("+-----------------------------------------------------+");
-                        System.out.println("| Your Room number is "+Room+" & Bed number is "+bed+"           |");
-                        System.out.println("+-----------------------------------------------------+");
-                        contract(room_choice);
-                        choice_room=false;
-                        break;
+                        nextBed2 = 1;
+                        nextRoom2++;
                     }
-                    break;
+                    contract(room_choice);
+                    choice_room=false;
                 }
             }
             else if(room_choice==2)
             {
                 room="3 Sharing room";
-                for( Room=204;Room<=215;Room++)
+                if(nextRoom3 > 215)
                 {
-                    for(bed=1;bed<=3;bed++)
+                    System.out.println("+-----------------------------------------------------+");
+                    System.out.println("| All 3-sharing rooms are fully booked!               |");
+                    System.out.println("+-----------------------------------------------------+");
+                    choice_room=false;
+                }
+                else
+                {
+                    Room = nextRoom3;
+                    bed = nextBed3;
+                    room_no = Room;
+                    bed_no = bed;
+                    System.out.println("+-----------------------------------------------------+");
+                    System.out.println("| Your Room number is "+Room+" & Bed number is "+bed+"           |");
+                    System.out.println("+-----------------------------------------------------+");
+                    
+                    nextBed3++;
+                    if(nextBed3 > 3)
                     {
-                        room_no=Room;bed_no=bed;
-                        System.out.println("+-----------------------------------------------------+");
-                        System.out.println("| Your Room number is "+Room+" & Bed number is "+bed+"           |");
-                        System.out.println("+-----------------------------------------------------+");
-                        contract(room_choice);
-                        choice_room=false;
-                        break;
+                        nextBed3 = 1;
+                        nextRoom3++;
                     }
-                    break;
+                    contract(room_choice);
+                    choice_room=false;
                 }
             }
             else if(room_choice==3)
             {
                 room="4 Sharing room";
-                for( Room=304;Room<=310;Room++)
+                if(nextRoom4 > 310)
                 {
-                    for(bed=1;bed<=4;bed++)
+                    System.out.println("+-----------------------------------------------------+");
+                    System.out.println("| All 4-sharing rooms are fully booked!               |");
+                    System.out.println("+-----------------------------------------------------+");
+                    choice_room=false;
+                }
+                else
+                {
+                    Room = nextRoom4;
+                    bed = nextBed4;
+                    room_no = Room;
+                    bed_no = bed;
+                    System.out.println("+-----------------------------------------------------+");
+                    System.out.println("| Your Room number is "+Room+" & Bed number is "+bed+"           |");
+                    System.out.println("+-----------------------------------------------------+");
+                    
+                    nextBed4++;
+                    if(nextBed4 > 4)
                     {
-                        room_no=Room;bed_no=bed;
-                        System.out.println("+-----------------------------------------------------+");
-                        System.out.println("| Your Room number is "+Room+" & Bed number is "+bed+"           |");
-                        System.out.println("+-----------------------------------------------------+");
-                        contract(room_choice);
-                        choice_room=false;
-                        break;
+                        nextBed4 = 1;
+                        nextRoom4++;
                     }
-                    break;
+                    contract(room_choice);
+                    choice_room=false;
                 }
             }
             else
@@ -1042,7 +1136,7 @@ class Guest
                 System.out.println("-----------------------+");
                 System.out.println("| Enter a valid number |");
                 System.out.println("-----------------------+");
-                room_choice=sc.nextInt();
+                room_choice=nextInt();
             }
         }
     }
@@ -1057,7 +1151,7 @@ class Guest
             System.out.println("| Option 2 : Six Months            |");
             System.out.println("| Option 3 : Twelve Months         |");
             System.out.println("+----------------------------------+");
-            Contracts=sc.nextInt();
+            Contracts=nextInt();
             {
                 boolean choice_contract_2=true;
                 while(choice_contract_2)
@@ -1097,7 +1191,7 @@ class Guest
                         System.out.println("+--------------------+");
                         System.out.println("| Enter valid number |");
                         System.out.println("+--------------------+");
-                        Contracts=sc.nextInt();
+                        Contracts=nextInt();
                     }
                 }
             }
@@ -1111,7 +1205,7 @@ class Guest
             System.out.println("| Option 2 : Six Months            |");
             System.out.println("| Option 3 : Twelve Months         |");
             System.out.println("+----------------------------------+");
-            Contracts=sc.nextInt();
+            Contracts=nextInt();
             {
                 boolean choice_contract_3=true;
                 while(choice_contract_3)
@@ -1151,7 +1245,7 @@ class Guest
                         System.out.println("+--------------------+");
                         System.out.println("| Enter valid number |");
                         System.out.println("+--------------------+");
-                        Contracts=sc.nextInt();
+                        Contracts=nextInt();
                     }
                 }
             }
@@ -1165,7 +1259,7 @@ class Guest
             System.out.println("| Option 2 : Six Months            |");
             System.out.println("| Option 3 : Twelve Months         |");
             System.out.println("+----------------------------------+");
-            Contracts=sc.nextInt();
+            Contracts=nextInt();
             {
                 boolean choice_contract_4=true;
                 while(choice_contract_4)
@@ -1205,7 +1299,7 @@ class Guest
                         System.out.println("+--------------------+");
                         System.out.println("| Enter valid number |");
                         System.out.println("+--------------------+");
-                        Contracts=sc.nextInt();
+                        Contracts=nextInt();
                     }
                 }
             }
@@ -1220,12 +1314,12 @@ class Guest
 			System.out.println("| Select a that day'date |");
 			System.out.println("+========================+");
 			System.out.println("|  Enter a Month(1-12)   |");
-			Month=sc.nextInt();
+			Month=nextInt();
 			if(Month==2)
 			{
 				System.out.println("+----------------------------+");
 				System.out.println("| Enter that day'Date (1-28) |");
-				Date=sc.nextInt();
+				Date=nextInt();
 				if(Date>=1&&Date<=28)
 				{
 					thatday=false;
@@ -1240,7 +1334,7 @@ class Guest
 			{
 				System.out.println("+----------------------------+");
 				System.out.println("| Enter that day'Date (1-30) |");
-				Date=sc.nextInt();
+				Date=nextInt();
 				if(Date>=1&&Date<=30)
 				{
 					thatday=false;
@@ -1255,7 +1349,7 @@ class Guest
 			{
 				System.out.println("+----------------------------+");
 				System.out.println("| Enter that day'Date (1-31) |");
-				Date=sc.nextInt();
+				Date=nextInt();
 				if(Date>=1&&Date<=31)
 				{
 					thatday=false;
@@ -1339,8 +1433,8 @@ class Guest
 }
 
 class house {
+    public static final Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         Resident resident = new Resident();
         Guest guest = new Guest();
         
